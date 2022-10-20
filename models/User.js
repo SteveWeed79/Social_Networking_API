@@ -13,11 +13,8 @@ const userSchema = new Schema(
       type: String,
       required: true,
       unique: true,
-      validate: {
-        validator: function (email) {
-          return /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(email);
-        },
-      },
+      match: [/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/, "Enter a valid email"],
+
       //validate the string is a proper email.
     },
     thoughts: [
