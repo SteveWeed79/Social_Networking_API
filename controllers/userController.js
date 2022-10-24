@@ -50,14 +50,14 @@ module.exports = {
 
   updateUser(req, res) {
     User.findOneAndUpdate(
-      { _id: req.params.courseId },
+      { _id: req.params.userId },
       { $set: req.body },
       { runValidators: true, new: true }
     )
       .then((user) =>
         !user
           ? res.status(404).json({ message: "No user found" })
-          : res.json(course)
+          : res.json(user)
       )
       .catch((err) => res.status(500).json(err));
   },
@@ -68,12 +68,10 @@ module.exports = {
       { $addToSet: { friends: req.params.friendId } },
       { runValidators: true, new: true }
     )
-      .then((student) =>
-        !student
-          ? res
-              .status(404)
-              .json({ message: "No student found with that ID :(" })
-          : res.json(student)
+      .then((friend) =>
+        !friend
+          ? res.status(404).json({ message: "No friend :(" })
+          : res.json(friend)
       )
       .catch((err) => res.status(500).json(err));
   },
