@@ -18,15 +18,17 @@ module.exports = {
       )
       .catch((err) => res.status(500).json(err));
   },
-  // Create thoughts
+
+  // Create a thought
   createThought(req, res) {
-    Thought.create(req.body)
+    Thought.create(req.body, { _id: req.params.userId })
       .then((thought) => res.json(thought))
       .catch((err) => {
         console.log(err);
         return res.status(500).json(err);
       });
   },
+
   // Delete a Thought
   async deleteThought(req, res) {
     try {
