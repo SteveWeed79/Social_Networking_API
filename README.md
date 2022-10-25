@@ -18,6 +18,8 @@ You will need to run "npm install" in the command line to install the needed dep
 
 This api will hold users, thoughts, and reactions to thoughts. Below is a demo video of the app’s functionality.
 
+https://drive.google.com/file/d/1UbPIVSc6hEv2jW-LvGTxzlhVew0o9MaY/view
+
 ## License
 
 MIT License
