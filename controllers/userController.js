@@ -48,6 +48,7 @@ module.exports = {
     }
   },
 
+  //Update user by id
   updateUser(req, res) {
     User.findOneAndUpdate(
       { _id: req.params.userId },
@@ -62,20 +63,21 @@ module.exports = {
       .catch((err) => res.status(500).json(err));
   },
 
-  addFriend(req, res) {
-    User.findOneAndUpdate(
-      { _id: req.params.userId },
-      { $addToSet: { friends: req.params.friendId } },
-      { runValidators: true, new: true }
-    )
-      .then((friend) =>
-        !friend
-          ? res.status(404).json({ message: "No friend :(" })
-          : res.json(friend)
-      )
-      .catch((err) => res.status(500).json(err));
+  //Add a friend to a user
+  async addFriend(req, res) {
+    try {
+      const friend = await User.findOneAndUpdate(
+        { _id: req.params.userId },
+        { $addToSet: { friends: req.params.friendId } },
+        { runValidators: true, new: true }
+      );
+    } catch (err) {
+      console.log(err);
+      res.status(500).json(err);
+    }
   },
-  // Remove assignment from a student
+
+  // Remove friend from a user
   removeFriend(req, res) {
     User.findOneAndUpdate(
       { _id: req.params.userId },
@@ -84,9 +86,7 @@ module.exports = {
     )
       .then((user) =>
         !student
-          ? res
-              .status(404)
-              .json({ message: "No student found with that ID :(" })
+          ? res.status(404).json({ message: "No friend found" })
           : res.json(student)
       )
       .catch((err) => res.status(500).json(err));
